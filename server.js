@@ -3443,7 +3443,7 @@ function compactState(state, full = false) {
     atk: Boolean(state.isAttacking), atp: Number(state.attackTimer) || 0, atd: Number(state.attackDuration) || 0, k: state.kills || 0, xp: state.xp || 0, g: state.gold || 0,
     sc: score, at: state.axeTier || 0, st: state.swordTier || 0, rk: state.visualRankId ?? Math.min(11, Number(state.rankId) || 0),
     vx: state.vx ? Math.round(state.vx * 10) / 10 : 0, vy: state.vy ? Math.round(state.vy * 10) / 10 : 0,
-    bx: typeof state.buildX === 'number' ? Math.round(state.buildX) : null, by: typeof state.buildY === 'number' ? Math.round(state.buildY) : null,
+    bx: typeof state.buildX === 'number' ? Math.round(state.buildX * 10) / 10 : null, by: typeof state.buildY === 'number' ? Math.round(state.buildY * 10) / 10 : null,
     sq: state.stateSeq || 0, tm: state.stateAt || Date.now(), tp: state.teleportSeq || 0,
     trappedBy: state.trappedBy || null, trappedX: state.trappedX ?? null, trappedY: state.trappedY ?? null,
     bt: Boolean(state.isBot),
@@ -3478,6 +3478,8 @@ function compactStateCompressed(state) {
     hp: Number(state.hp ?? 100),
     mhp: Number(state.maxHp ?? 100),
     w: Number(state.weapon || 1),
+    bx: typeof state.buildX === 'number' ? Math.round(state.buildX * 10) / 10 : null,
+    by: typeof state.buildY === 'number' ? Math.round(state.buildY * 10) / 10 : null,
     sq: Number(state.stateSeq || 0),
     tp: Number(state.teleportSeq || 0),
     vx: Math.round((Number(state.vx) || 0) * 10) / 10,
@@ -3498,7 +3500,7 @@ function stateSignature(state) {
 function compressedStateSignature(payload) {
   if (!payload) return '';
   return [
-    payload.x, payload.y, payload.a, payload.hp, payload.mhp, payload.w, payload.sq,
+    payload.x, payload.y, payload.a, payload.hp, payload.mhp, payload.w, payload.bx, payload.by, payload.sq,
     payload.tp, payload.vx, payload.vy, payload.atk, payload.t, payload.r
   ].join('|');
 }
