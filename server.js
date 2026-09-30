@@ -844,7 +844,7 @@ function saveCosmeticCatalog() {
   } catch (_) { return false; }
 }
 function publicCosmetic(item) {
-  return { id: item.id, type: item.type, name: item.name, rarity: item.rarity, color: item.color, asset: item.asset, price: item.price, width: item.width || 0, height: item.height || 0, orientation: item.orientation || 'unknown', chests: [...(item.chests || [])], createdAt: item.createdAt, updatedAt: item.updatedAt || item.createdAt };
+  return { id: item.id, type: item.type, name: item.type === 'skin' ? cosmeticSkinName(item.id, item.name) : item.name, rarity: item.rarity, color: item.color, asset: item.asset, price: item.price, width: item.width || 0, height: item.height || 0, orientation: item.orientation || 'unknown', chests: [...(item.chests || [])], createdAt: item.createdAt, updatedAt: item.updatedAt || item.createdAt };
 }
 
 function normalizeCatalogSkinId(fileName) {
@@ -854,13 +854,40 @@ function normalizeCatalogSkinId(fileName) {
   return normalized || '';
 }
 
+const COSMETIC_SKIN_NAMES = Object.freeze({
+  ates_4k_asset: 'Alev Dişli Canavar',
+  biyo_mutant_god_tier: 'Yeşil Benekli Mutant',
+  deniz_4k_asset: 'Mavi Dikenli Balık',
+  ejder_4k_asset: 'Zümrüt Kabuklu Ejder',
+  gunes_tanrisi_god_tier: 'Altın Güneş Küresi',
+  hiclik_tirpani_god_tier: 'Mor Gölgeli Tırpan',
+  kadim_dehset_god_tier_2: 'Zümrüt Kabuklu Kaplumbağa',
+  kafatasi_4k_asset: 'Kızıl Gözlü Kafatası',
+  kozmik_varlik_god_tier: 'Mor Halkalı Göz Küresi',
+  kristal_ejder_god_tier: 'Kristal Kanatlı Ejderha',
+  kurt_4k_asset: 'Mavi Işıklı Kurt',
+  ninja_4k_asset: 'Kızıl Gözlü Ninja',
+  panda_4k_asset: 'Beyaz Panda',
+  robot_4k_asset: 'Mavi Işıklı Robot',
+  savasci_4k_asset: 'Boz Tüylü Savaşçı',
+  serafim_god_tier: 'Altın Halkalı Küre',
+  siber_iblis_god_tier: 'Kızıl Zırhlı Robot',
+  tavsan_4k_asset: 'Eflatun Tavşan',
+  toprak_titani_god_tier: 'Lav Çekirdekli Golem',
+  zehir_kralicesi_god_tier: 'Mor Zehir Akrebi'
+});
+
+function cosmeticSkinName(id, fallback = '') {
+  return COSMETIC_SKIN_NAMES[String(id || '').toLowerCase()] || String(fallback || titleCaseCosmeticName(id)).trim();
+}
+
 function titleCaseCosmeticName(id) {
   return String(id || '')
+    .replace(/_(?:god_tier(?:_\d+)?|4k_asset|hd_asset|asset)$/i, '')
     .replace(/[_-]+/g, ' ')
+    .replace(/\b(?:god|tier|4k|hd|asset)\b/gi, '')
+    .replace(/\s+/g, ' ')
     .replace(/\b\w/g, char => char.toUpperCase())
-    .replace(/\b4k\b/gi, '4K')
-    .replace(/\bGod\b/gi, 'God')
-    .replace(/\bTier\b/gi, 'Tier')
     .trim();
 }
 
@@ -903,7 +930,7 @@ function hydrateCatalogFromAssets() {
     const item = {
       id,
       type: 'skin',
-      name: String(existing?.name || titleCaseCosmeticName(id)).trim().slice(0, 40) || titleCaseCosmeticName(id),
+      name: cosmeticSkinName(id, existing?.name || titleCaseCosmeticName(id)).slice(0, 40) || titleCaseCosmeticName(id),
       rarity: existing?.rarity || rarityForCatalogSkinId(id),
       color: existing?.color || '#b8f36b',
       asset,
@@ -2044,7 +2071,7 @@ async function handleApi(request, response, requestPath) {
       const item = {
         id: itemId,
         type,
-        name: String(body.name || itemId).trim().slice(0, 40),
+        name: cosmeticSkinName(itemId, body.name || itemId).slice(0, 40),
         rarity,
         color: String(body.color || '#b8f36b').slice(0, 20),
         asset: assetInfo.asset,
@@ -2094,7 +2121,7 @@ async function handleApi(request, response, requestPath) {
       return true;
     }
     if (!itemId || !COSMETIC_TYPES.has(body.type) || !COSMETIC_RARITIES.has(body.rarity)) { sendJson(response, 400, { error: 'ID, tür veya rarity geçersiz.' }); return true; }
-    const item = { id: itemId, type: body.type, name: String(body.name || itemId).trim().slice(0, 40), rarity: body.rarity, color: String(body.color || '#b8f36b').slice(0, 20), asset: String(body.asset || `players/${itemId}.png`).trim().slice(0, 160), price: Math.max(0, Math.min(1000000, Number(body.price) || 0)), chests: Array.isArray(body.chests) ? body.chests.filter(chestId => Object.prototype.hasOwnProperty.call(CHEST_CONFIG, chestId)) : [], createdAt: Date.now() };
+    const item = { id: itemId, type: body.type, name: body.type === 'skin' ? cosmeticSkinName(itemId, body.name || itemId).slice(0, 40) : String(body.name || itemId).trim().slice(0, 40), rarity: body.rarity, color: String(body.color || '#b8f36b').slice(0, 20), asset: String(body.asset || `players/${itemId}.png`).trim().slice(0, 160), price: Math.max(0, Math.min(1000000, Number(body.price) || 0)), chests: Array.isArray(body.chests) ? body.chests.filter(chestId => Object.prototype.hasOwnProperty.call(CHEST_CONFIG, chestId)) : [], createdAt: Date.now() };
     const existing = cosmeticCatalog.findIndex(entry => entry.id === itemId);
     const nextItem = { ...item, createdAt: existing >= 0 && cosmeticCatalog[existing]?.createdAt ? cosmeticCatalog[existing].createdAt : Date.now(), updatedAt: Date.now() };
     if (existing >= 0) cosmeticCatalog[existing] = nextItem;
