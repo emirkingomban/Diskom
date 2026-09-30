@@ -3272,7 +3272,7 @@
                 margin-bottom: 0.15rem !important;
             }
             #main-menu > .relative:first-child h1 {
-                font-size: 1.45rem !important;
+                font-size: 1.2rem !important;
                 line-height: 1 !important;
             }
             #main-menu > .relative:first-child h1 span.text-xl,
@@ -4451,8 +4451,12 @@
 
         @media (max-width: 900px) and (orientation: landscape) and (max-height: 640px) {
             :root {
-                --mobile-landscape-side: clamp(136px, 24vw, 170px);
-                --mobile-landscape-center: min(340px, calc(100vw - var(--mobile-landscape-side) - var(--mobile-landscape-side) - 24px));
+                --mobile-landscape-side: clamp(124px, 21vw, 150px);
+                --mobile-landscape-center: min(300px, calc(100vw - var(--mobile-landscape-side) - var(--mobile-landscape-side) - 20px));
+            }
+
+            #left-creator-event-widget {
+                display: none !important;
             }
 
             #left-events-container {
@@ -4487,9 +4491,36 @@
             #left-events-container .creator-banner-card {
                 width: 100% !important;
                 min-width: 0 !important;
-                padding: 6px !important;
+                padding: 5px !important;
                 border-width: 2px !important;
-                border-radius: 9px !important;
+                border-radius: 8px !important;
+                gap: 4px !important;
+            }
+
+            #invite-widget-card .invite-flame-badge {
+                padding: 1px 3px !important;
+                font-size: 8px !important;
+            }
+
+            #invite-widget-card .font-io.text-white {
+                font-size: 9px !important;
+            }
+
+            #invite-widget-card button > div:first-child {
+                width: 40px !important;
+                height: 40px !important;
+            }
+
+            #invite-widget-card canvas {
+                width: 38px !important;
+                height: 38px !important;
+            }
+
+            #invite-widget-card button.btn-3d {
+                min-height: 28px !important;
+                padding-top: 3px !important;
+                padding-bottom: 3px !important;
+                font-size: 9px !important;
             }
 
             #header-right-panel {
@@ -4521,12 +4552,48 @@
                 max-width: 100% !important;
             }
 
-            #header-right-panel .grid.grid-cols-2 button {
+            #header-right-panel > div:nth-child(2) {
+                display: flex !important;
+                width: 100% !important;
+                justify-content: stretch !important;
+                gap: 3px !important;
+                margin: 0 !important;
+            }
+
+            #header-right-panel > div:nth-child(2) button {
+                flex: 1 1 0 !important;
                 min-width: 0 !important;
-                padding-left: 2px !important;
-                padding-right: 2px !important;
+                min-height: 26px !important;
+                height: 26px !important;
+                padding: 2px !important;
+                font-size: 8px !important;
+            }
+
+            #header-reward-challenges-stack button {
+                min-height: 28px !important;
+                height: 28px !important;
+                padding: 2px 3px !important;
                 font-size: 9px !important;
             }
+
+            #header-right-panel .grid.grid-cols-2 {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 3px !important;
+                margin-top: auto !important;
+            }
+
+            #header-right-panel .grid.grid-cols-2 button {
+                min-width: 0 !important;
+                min-height: 26px !important;
+                height: 26px !important;
+                padding: 2px 4px !important;
+                font-size: 9px !important;
+            }
+
+            #header-right-panel .grid.grid-cols-2 button:nth-child(1) { order: 1; }
+            #header-right-panel .grid.grid-cols-2 button:nth-child(3) { order: 2; }
+            #header-right-panel .grid.grid-cols-2 button:nth-child(2) { order: 3; }
 
             #main-menu {
                 position: fixed !important;
@@ -4585,7 +4652,7 @@
 
             #main-menu > div:nth-child(3) span,
             #main-menu > div:nth-child(5) span {
-                font-size: 9px !important;
+                font-size: 8px !important;
             }
 
             #main-menu > .mode-selector-wrap {
@@ -4597,26 +4664,31 @@
             }
 
             #mode-card-classic > span {
-                font-size: 8px !important;
+                font-size: 7px !important;
             }
 
             #active-pet-btn {
-                height: 56px !important;
-                min-height: 56px !important;
+                height: 46px !important;
+                min-height: 46px !important;
                 margin-bottom: 0 !important;
-                padding: 4px 6px !important;
+                padding: 3px 4px !important;
             }
 
             #active-pet-btn > div:first-child {
-                width: 42px !important;
-                height: 42px !important;
-                min-width: 42px !important;
+                width: 34px !important;
+                height: 34px !important;
+                min-width: 34px !important;
             }
 
             #active-pet-btn canvas {
-                width: 40px !important;
-                height: 40px !important;
+                width: 32px !important;
+                height: 32px !important;
             }
+
+            #active-pet-name { font-size: 14px !important; }
+            #active-pet-sub { font-size: 7px !important; }
+            #active-pet-btn .icon-badge { width: 21px !important; height: 21px !important; }
+            #active-pet-btn .icon-badge i { font-size: 9px !important; }
 
             #name-input {
                 margin-bottom: 0 !important;
@@ -4627,18 +4699,30 @@
             }
 
             #mode-card-classic {
-                padding: 6px 8px !important;
+                padding: 4px 6px !important;
             }
 
             #play-btn {
-                height: 50px !important;
-                min-height: 50px !important;
+                height: 42px !important;
+                min-height: 42px !important;
                 margin-bottom: 0 !important;
             }
+
+            #play-btn-text { font-size: 1.4rem !important; }
 
             #action-buttons-grid {
                 margin: 0 !important;
             }
+
+            #action-buttons-grid button {
+                height: 30px !important;
+                min-height: 30px !important;
+                padding-left: 3px !important;
+                padding-right: 3px !important;
+                font-size: 9px !important;
+            }
+
+            #action-buttons-grid i { font-size: 12px !important; }
         }
 
         @media (max-width: 640px) and (orientation: portrait) and (max-height: 700px) {
