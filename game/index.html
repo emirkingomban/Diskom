@@ -4229,6 +4229,306 @@
                 font-size: 14px !important;
             }
         }
+
+        @media (max-width: 640px), (max-width: 900px) and (orientation: landscape) and (max-height: 420px) {
+            header {
+                inset: max(4px, env(safe-area-inset-top, 4px)) 8px auto !important;
+                width: auto !important;
+                max-width: none !important;
+                height: auto !important;
+                min-height: 42px;
+                padding: 2px 4px;
+                transform: none !important;
+                align-items: center !important;
+                border: 1px solid rgba(180, 215, 190, .2);
+                border-radius: 9px;
+                background: rgba(8, 20, 14, .96);
+                pointer-events: auto !important;
+            }
+
+            header > div:first-child {
+                display: flex !important;
+                width: 100%;
+                min-height: 38px;
+                align-items: center;
+                justify-content: space-between !important;
+                flex-wrap: nowrap !important;
+                gap: 4px;
+            }
+
+            #header-profile-hud,
+            #header-server-section,
+            #header-right-panel,
+            #left-events-container {
+                display: none !important;
+            }
+
+            #header-guest-view:not(.hidden),
+            #header-user-view:not(.hidden) {
+                display: flex !important;
+                flex: 1 1 auto;
+                min-width: 0;
+                width: auto;
+                align-items: center;
+                flex-wrap: nowrap !important;
+                gap: 3px;
+                overflow: visible;
+            }
+
+            #header-user-view > button:first-child {
+                width: auto !important;
+                min-width: 0 !important;
+                max-width: 104px;
+                min-height: 36px;
+                padding: 2px 4px !important;
+                gap: 4px;
+                overflow: hidden;
+            }
+
+            #header-user-view > button:first-child > div:nth-child(2) {
+                display: flex !important;
+                min-width: 0;
+                max-width: 64px;
+                overflow: hidden;
+            }
+
+            #header-username {
+                max-width: 64px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                font-size: 10px !important;
+            }
+
+            #header-rank { display: none !important; }
+
+            #header-settings-section {
+                display: flex !important;
+                flex: 0 0 auto;
+                align-items: center;
+                gap: 3px;
+                margin-left: auto;
+            }
+
+            #btn-sound-toggle { display: none !important; }
+
+            #header-settings-section .btn-3d {
+                width: 36px;
+                min-width: 36px;
+                min-height: 36px;
+                height: 36px;
+                padding: 0 !important;
+            }
+
+            .gold-balance-pill,
+            .diamond-pill {
+                min-height: 32px;
+                gap: 3px;
+                padding: 3px 5px;
+                font-size: 10px;
+                flex: 0 1 auto !important;
+            }
+
+            .gold-balance-icon,
+            .diamond-pill-icon {
+                width: 15px;
+                height: 15px;
+                flex: 0 0 auto;
+            }
+
+            .gold-balance-value,
+            .diamond-pill-value {
+                min-width: 0;
+                font-size: 10px;
+                font-variant-numeric: tabular-nums;
+            }
+
+            .diamond-plus-btn {
+                width: 20px;
+                height: 20px;
+                flex: 0 0 20px;
+            }
+
+            #main-menu {
+                width: min(100vw, 520px) !important;
+                max-width: 520px !important;
+                height: 100dvh !important;
+                max-height: 100dvh !important;
+                margin: 0 auto !important;
+                padding: calc(50px + env(safe-area-inset-top, 0px)) 12px calc(20px + env(safe-area-inset-bottom, 0px)) !important;
+                justify-content: flex-start !important;
+                overflow-x: hidden !important;
+                overflow-y: auto !important;
+                overscroll-behavior-y: contain !important;
+                scrollbar-width: thin !important;
+            }
+
+            #main-menu > .relative:first-child {
+                margin-bottom: 8px !important;
+            }
+
+            #main-menu > .relative:first-child h1 {
+                font-size: clamp(2.15rem, 10vw, 3rem) !important;
+                line-height: 1 !important;
+            }
+
+            #main-menu > .relative:first-child h1 span.text-xl,
+            #main-menu > .relative:first-child h1 span.text-2xl {
+                position: relative !important;
+                right: auto !important;
+                bottom: auto !important;
+                display: inline-block !important;
+                margin-left: 2px;
+                font-size: .46em !important;
+            }
+
+            #name-input {
+                height: 44px !important;
+                min-height: 44px !important;
+                font-size: 16px !important;
+            }
+
+            #active-pet-btn {
+                height: 68px !important;
+                min-height: 68px !important;
+            }
+
+            #play-btn {
+                height: 62px !important;
+                min-height: 62px !important;
+            }
+
+            #action-buttons-grid button {
+                height: 46px !important;
+                min-height: 46px !important;
+            }
+
+            .mobile-portrait-stream {
+                gap: 8px !important;
+            }
+        }
+
+        @media (max-width: 380px) {
+            #header-guest-view > button:first-child {
+                width: 32px !important;
+                min-width: 32px !important;
+                height: 36px !important;
+                min-height: 36px !important;
+                padding: 0 !important;
+                justify-content: center;
+            }
+
+            #header-guest-view > button:first-child span:last-child { display: none !important; }
+
+            #header-guest-view > button:nth-child(2) {
+                min-width: 42px !important;
+                padding-left: 5px !important;
+                padding-right: 5px !important;
+            }
+
+            #header-user-view > button:first-child {
+                max-width: 78px;
+            }
+
+            #header-user-view > button:first-child > div:nth-child(2) {
+                max-width: 42px;
+            }
+
+            #header-username { max-width: 42px; }
+
+            .gold-balance-pill,
+            .diamond-pill {
+                gap: 2px;
+                padding-left: 3px;
+                padding-right: 3px;
+                font-size: 9px;
+            }
+
+            .gold-balance-icon,
+            .diamond-pill-icon {
+                width: 14px;
+                height: 14px;
+            }
+        }
+
+        @media (max-width: 900px) and (orientation: landscape) and (max-height: 420px) {
+            #main-menu {
+                display: grid !important;
+                grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+                align-content: start;
+                align-items: center;
+                column-gap: 10px;
+                row-gap: 3px;
+                padding: calc(46px + env(safe-area-inset-top, 0px)) 12px 14px !important;
+            }
+
+            #main-menu > .relative:first-child,
+            #main-menu > #party-invite-banner,
+            #main-menu > .mode-selector-wrap,
+            #main-menu > .io-games-play-row,
+            #main-menu > #action-buttons-grid,
+            #main-menu > .mobile-portrait-stream {
+                grid-column: 1 / -1;
+            }
+
+            #main-menu > .relative:first-child { grid-row: 1; }
+            #main-menu > #party-invite-banner { grid-row: 2; }
+            #main-menu > div:nth-child(3) { grid-column: 1; grid-row: 3; }
+            #main-menu > #name-input { grid-column: 1; grid-row: 4; }
+            #main-menu > div:nth-child(5) { grid-column: 2; grid-row: 3; }
+            #main-menu > #active-pet-btn { grid-column: 2; grid-row: 4; }
+            #main-menu > .mode-selector-wrap { grid-row: 5; }
+            #main-menu > .io-games-play-row { grid-row: 6; }
+            #main-menu > #action-buttons-grid { grid-row: 7; }
+            #main-menu > .mobile-portrait-stream {
+                grid-row: 8;
+                display: grid !important;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 6px !important;
+            }
+
+            .mobile-portrait-stream > div:first-child { grid-column: 1 / -1; }
+
+            #active-pet-btn {
+                height: 56px !important;
+                min-height: 56px !important;
+                margin-bottom: 0 !important;
+                padding: 4px 6px !important;
+            }
+
+            #active-pet-btn > div:first-child {
+                width: 42px !important;
+                height: 42px !important;
+                min-width: 42px !important;
+            }
+
+            #active-pet-btn canvas {
+                width: 40px !important;
+                height: 40px !important;
+            }
+
+            #name-input {
+                margin-bottom: 0 !important;
+            }
+
+            #main-menu > .mode-selector-wrap {
+                margin: 0 !important;
+            }
+
+            #mode-card-classic {
+                padding: 6px 8px !important;
+            }
+
+            #play-btn {
+                height: 50px !important;
+                min-height: 50px !important;
+                margin-bottom: 0 !important;
+            }
+
+            #action-buttons-grid {
+                margin: 0 !important;
+            }
+        }
     </style>
 </head>
 <body class="w-full h-full flex flex-col items-center justify-center relative select-none">
@@ -5210,7 +5510,7 @@
                     <div class="min-w-0">
                         <div class="font-io text-xl text-[#b8f3ff] stroke-text">DIAMOND</div>
                         <div class="text-[11px] text-white/70 font-bold leading-snug">Nadir kozmetiklerin ve özel ödüllerin para birimi.</div>
-                        <div class="text-[10px] text-cyan-200 font-black mt-1">1 diamond = 10.000 gold</div>
+                        <div class="text-[10px] text-cyan-200 font-black mt-1">1 diamond = 5.000 score</div>
                     </div>
                 </div>
                 <div class="panel-inset p-3 flex flex-col gap-2 border-[2px] border-cyan-300/20">
@@ -5218,14 +5518,14 @@
                         <span class="font-io text-sm text-white">Kaç diamond alacaksın?</span>
                         <span class="text-[10px] text-white/50 font-bold text-right">
                             Diamond: <b id="diamond-modal-balance" class="text-cyan-200">0</b>
-                            <span class="block mt-0.5 text-[#ffe27a]">Altın: <b id="diamond-modal-gold">0</b> <i class="fa-solid fa-coins text-[#ffd54f]" aria-label="Altın"></i></span>
+                            <span class="block mt-0.5 text-[#ffe27a]">Score: <b id="diamond-modal-score">0</b></span>
                         </span>
                     </div>
                     <div class="diamond-buy-summary">
                         <input id="diamond-buy-amount" class="diamond-buy-amount" type="number" min="1" max="1000" value="1" inputmode="numeric" oninput="updateDiamondPurchaseTotal()" aria-label="Diamond miktarı">
                         <span class="text-white/60 font-black">×</span>
-                        <span class="text-[11px] text-[#ffe27a] font-black">10.000 gold</span>
-                        <span id="diamond-buy-total" class="diamond-buy-total">10.000</span>
+                        <span class="text-[11px] text-[#ffe27a] font-black">5.000 score</span>
+                        <span id="diamond-buy-total" class="diamond-buy-total">5.000</span>
                     </div>
                     <div class="text-[10px] text-white/45 font-bold">Satın alınan diamond hesabına kalıcı olarak kaydedilir.</div>
                 </div>
@@ -6022,7 +6322,7 @@
             localStorage.setItem('fb_gold', Math.max(0, g));
             updateGoldDisplays();
         }
-        const DIAMOND_PRICE = 10000;
+        const DIAMOND_PRICE = 5000;
         function getPlayerDiamonds() {
             const serverValue = Number(_authUser?.diamonds);
             if (Number.isFinite(serverValue)) return Math.max(0, serverValue);
@@ -6040,8 +6340,8 @@
                 const element = document.getElementById(id);
                 if (element) element.textContent = diamonds.toLocaleString('tr-TR');
             });
-            const goldElement = document.getElementById('diamond-modal-gold');
-            if (goldElement) goldElement.textContent = getPlayerGold().toLocaleString('tr-TR');
+            const scoreElement = document.getElementById('diamond-modal-score');
+            if (scoreElement) scoreElement.textContent = (Number(_authUser?.score) || 0).toLocaleString('tr-TR');
         }
         async function syncEconomyFromServer() {
             if (!_authToken) _authToken = localStorage.getItem('fb_auth_token') || null;
@@ -6081,7 +6381,7 @@
             }
             if (note) note.textContent = 'Bakiye güncelleniyor...';
             const synced = await syncEconomyFromServer();
-            if (note) note.textContent = synced ? 'Hesabındaki altın ile güvenli satın alma.' : 'Bakiye güncellenemedi. Tekrar dene.';
+            if (note) note.textContent = synced ? 'Hesabındaki score ile güvenli satın alma.' : 'Bakiye güncellenemedi. Tekrar dene.';
         }
         function updateDiamondPurchaseTotal() {
             const input = document.getElementById('diamond-buy-amount');
