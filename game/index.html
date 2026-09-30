@@ -3272,7 +3272,7 @@
                 margin-bottom: 0.15rem !important;
             }
             #main-menu > .relative:first-child h1 {
-                font-size: 1.2rem !important;
+                font-size: 1rem !important;
                 line-height: 1 !important;
             }
             #main-menu > .relative:first-child h1 span.text-xl,
@@ -4451,12 +4451,19 @@
 
         @media (max-width: 900px) and (orientation: landscape) and (max-height: 640px) {
             :root {
-                --mobile-landscape-side: clamp(124px, 21vw, 150px);
-                --mobile-landscape-center: min(300px, calc(100vw - var(--mobile-landscape-side) - var(--mobile-landscape-side) - 20px));
+                --mobile-landscape-side: clamp(120px, 20vw, 148px);
+                --mobile-landscape-center: min(290px, calc(100vw - var(--mobile-landscape-side) - var(--mobile-landscape-side) - 20px));
             }
 
-            #left-creator-event-widget {
-                display: none !important;
+            header {
+                top: 2px !important;
+                min-height: 36px !important;
+                padding-top: 0 !important;
+                padding-bottom: 0 !important;
+            }
+
+            header > div:first-child {
+                min-height: 32px !important;
             }
 
             #left-events-container {
@@ -4466,8 +4473,8 @@
                 position: fixed !important;
                 left: max(8px, env(safe-area-inset-left, 8px)) !important;
                 right: auto !important;
-                top: 48px !important;
-                bottom: max(6px, env(safe-area-inset-bottom, 6px)) !important;
+                top: 40px !important;
+                bottom: max(4px, env(safe-area-inset-bottom, 4px)) !important;
                 width: var(--mobile-landscape-side) !important;
                 min-width: 0 !important;
                 max-width: var(--mobile-landscape-side) !important;
@@ -4530,8 +4537,8 @@
                 position: fixed !important;
                 left: auto !important;
                 right: max(8px, env(safe-area-inset-right, 8px)) !important;
-                top: 48px !important;
-                bottom: max(6px, env(safe-area-inset-bottom, 6px)) !important;
+                top: 40px !important;
+                bottom: max(4px, env(safe-area-inset-bottom, 4px)) !important;
                 width: var(--mobile-landscape-side) !important;
                 min-width: 0 !important;
                 max-width: var(--mobile-landscape-side) !important;
@@ -4599,8 +4606,8 @@
                 position: fixed !important;
                 left: 50% !important;
                 right: auto !important;
-                top: 48px !important;
-                bottom: max(6px, env(safe-area-inset-bottom, 6px)) !important;
+                top: 40px !important;
+                bottom: max(4px, env(safe-area-inset-bottom, 4px)) !important;
                 width: var(--mobile-landscape-center) !important;
                 min-width: 0 !important;
                 max-width: var(--mobile-landscape-center) !important;
@@ -4652,7 +4659,7 @@
 
             #main-menu > div:nth-child(3) span,
             #main-menu > div:nth-child(5) span {
-                font-size: 8px !important;
+                font-size: 7px !important;
             }
 
             #main-menu > .mode-selector-wrap {
@@ -4668,29 +4675,31 @@
             }
 
             #active-pet-btn {
-                height: 46px !important;
-                min-height: 46px !important;
+                height: 40px !important;
+                min-height: 40px !important;
                 margin-bottom: 0 !important;
-                padding: 3px 4px !important;
+                padding: 2px 4px !important;
             }
 
             #active-pet-btn > div:first-child {
-                width: 34px !important;
-                height: 34px !important;
-                min-width: 34px !important;
+                width: 29px !important;
+                height: 29px !important;
+                min-width: 29px !important;
             }
 
             #active-pet-btn canvas {
-                width: 32px !important;
-                height: 32px !important;
+                width: 27px !important;
+                height: 27px !important;
             }
 
-            #active-pet-name { font-size: 14px !important; }
-            #active-pet-sub { font-size: 7px !important; }
-            #active-pet-btn .icon-badge { width: 21px !important; height: 21px !important; }
-            #active-pet-btn .icon-badge i { font-size: 9px !important; }
+            #active-pet-name { font-size: 12px !important; }
+            #active-pet-sub { font-size: 6px !important; }
+            #active-pet-btn .icon-badge { width: 18px !important; height: 18px !important; }
+            #active-pet-btn .icon-badge i { font-size: 8px !important; }
 
             #name-input {
+                height: 36px !important;
+                min-height: 36px !important;
                 margin-bottom: 0 !important;
             }
 
@@ -4699,24 +4708,24 @@
             }
 
             #mode-card-classic {
-                padding: 4px 6px !important;
+                padding: 3px 5px !important;
             }
 
             #play-btn {
-                height: 42px !important;
-                min-height: 42px !important;
+                height: 36px !important;
+                min-height: 36px !important;
                 margin-bottom: 0 !important;
             }
 
-            #play-btn-text { font-size: 1.4rem !important; }
+            #play-btn-text { font-size: 1.2rem !important; }
 
             #action-buttons-grid {
                 margin: 0 !important;
             }
 
             #action-buttons-grid button {
-                height: 30px !important;
-                min-height: 30px !important;
+                height: 27px !important;
+                min-height: 27px !important;
                 padding-left: 3px !important;
                 padding-right: 3px !important;
                 font-size: 9px !important;
