@@ -4230,7 +4230,7 @@
             }
         }
 
-        @media (max-width: 640px), (max-width: 900px) and (orientation: landscape) and (max-height: 420px) {
+        @media (max-width: 640px), (max-width: 900px) and (orientation: landscape) and (max-height: 640px) {
             header {
                 inset: max(4px, env(safe-area-inset-top, 4px)) 8px auto !important;
                 width: auto !important;
@@ -4257,9 +4257,7 @@
             }
 
             #header-profile-hud,
-            #header-server-section,
-            #header-right-panel,
-            #left-events-container {
+            #header-server-section {
                 display: none !important;
             }
 
@@ -4451,15 +4449,109 @@
             }
         }
 
-        @media (max-width: 900px) and (orientation: landscape) and (max-height: 420px) {
+        @media (max-width: 900px) and (orientation: landscape) and (max-height: 640px) {
+            :root {
+                --mobile-landscape-side: clamp(136px, 24vw, 170px);
+                --mobile-landscape-center: min(340px, calc(100vw - var(--mobile-landscape-side) - var(--mobile-landscape-side) - 24px));
+            }
+
+            #left-events-container {
+                display: flex !important;
+                visibility: visible !important;
+                pointer-events: auto !important;
+                position: fixed !important;
+                left: max(8px, env(safe-area-inset-left, 8px)) !important;
+                right: auto !important;
+                top: 48px !important;
+                bottom: max(6px, env(safe-area-inset-bottom, 6px)) !important;
+                width: var(--mobile-landscape-side) !important;
+                min-width: 0 !important;
+                max-width: var(--mobile-landscape-side) !important;
+                min-height: 0 !important;
+                max-height: none !important;
+                overflow-y: auto !important;
+                scrollbar-width: none !important;
+                z-index: 25 !important;
+                margin: 0 !important;
+                transform: none !important;
+                align-items: stretch !important;
+                gap: 6px !important;
+            }
+
+            #left-events-container > div {
+                width: 100% !important;
+                align-items: stretch !important;
+            }
+
+            #left-events-container .invite-banner-card,
+            #left-events-container .creator-banner-card {
+                width: 100% !important;
+                min-width: 0 !important;
+                padding: 6px !important;
+                border-width: 2px !important;
+                border-radius: 9px !important;
+            }
+
+            #header-right-panel {
+                display: flex !important;
+                visibility: visible !important;
+                pointer-events: auto !important;
+                position: fixed !important;
+                left: auto !important;
+                right: max(8px, env(safe-area-inset-right, 8px)) !important;
+                top: 48px !important;
+                bottom: max(6px, env(safe-area-inset-bottom, 6px)) !important;
+                width: var(--mobile-landscape-side) !important;
+                min-width: 0 !important;
+                max-width: var(--mobile-landscape-side) !important;
+                min-height: 0 !important;
+                max-height: none !important;
+                overflow-y: auto !important;
+                scrollbar-width: none !important;
+                z-index: 25 !important;
+                margin: 0 !important;
+                transform: none !important;
+                align-items: stretch !important;
+                gap: 5px !important;
+            }
+
+            #header-reward-challenges-stack,
+            #header-right-panel .grid.grid-cols-2 {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+
+            #header-right-panel .grid.grid-cols-2 button {
+                min-width: 0 !important;
+                padding-left: 2px !important;
+                padding-right: 2px !important;
+                font-size: 9px !important;
+            }
+
             #main-menu {
+                position: fixed !important;
+                left: 50% !important;
+                right: auto !important;
+                top: 48px !important;
+                bottom: max(6px, env(safe-area-inset-bottom, 6px)) !important;
+                width: var(--mobile-landscape-center) !important;
+                min-width: 0 !important;
+                max-width: var(--mobile-landscape-center) !important;
+                height: auto !important;
+                min-height: 0 !important;
+                max-height: none !important;
+                margin: 0 !important;
+                transform: translateX(-50%) !important;
                 display: grid !important;
                 grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
                 align-content: start;
                 align-items: center;
-                column-gap: 10px;
-                row-gap: 3px;
-                padding: calc(46px + env(safe-area-inset-top, 0px)) 12px 14px !important;
+                column-gap: 7px;
+                row-gap: 2px;
+                overflow-x: hidden !important;
+                overflow-y: auto !important;
+                padding: 2px 4px 8px !important;
+                scrollbar-width: none !important;
             }
 
             #main-menu > .relative:first-child,
@@ -4482,12 +4574,31 @@
             #main-menu > #action-buttons-grid { grid-row: 7; }
             #main-menu > .mobile-portrait-stream {
                 grid-row: 8;
-                display: grid !important;
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-                gap: 6px !important;
+                display: none !important;
             }
 
-            .mobile-portrait-stream > div:first-child { grid-column: 1 / -1; }
+            #main-menu > div:nth-child(3),
+            #main-menu > div:nth-child(5) {
+                margin-bottom: 0 !important;
+                padding-left: 2px !important;
+            }
+
+            #main-menu > div:nth-child(3) span,
+            #main-menu > div:nth-child(5) span {
+                font-size: 9px !important;
+            }
+
+            #main-menu > .mode-selector-wrap {
+                margin: 0 !important;
+            }
+
+            #mode-card-classic {
+                padding: 5px 7px !important;
+            }
+
+            #mode-card-classic > span {
+                font-size: 8px !important;
+            }
 
             #active-pet-btn {
                 height: 56px !important;
@@ -4527,6 +4638,75 @@
 
             #action-buttons-grid {
                 margin: 0 !important;
+            }
+        }
+
+        @media (max-width: 640px) and (orientation: portrait) and (max-height: 700px) {
+            #main-menu {
+                padding-top: calc(46px + env(safe-area-inset-top, 0px)) !important;
+                padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px)) !important;
+            }
+
+            #main-menu > .relative:first-child {
+                margin-bottom: 4px !important;
+            }
+
+            #main-menu > .relative:first-child h1 {
+                font-size: clamp(2rem, 9vw, 2.6rem) !important;
+            }
+
+            #name-input {
+                height: 44px !important;
+                min-height: 44px !important;
+                margin-bottom: 4px !important;
+            }
+
+            #active-pet-btn {
+                height: 58px !important;
+                min-height: 58px !important;
+                margin-bottom: 4px !important;
+            }
+
+            #active-pet-btn > div:first-child {
+                width: 44px !important;
+                height: 44px !important;
+                min-width: 44px !important;
+            }
+
+            #active-pet-btn canvas {
+                width: 42px !important;
+                height: 42px !important;
+            }
+
+            #active-pet-name { font-size: 1rem !important; }
+            #active-pet-sub { font-size: 8px !important; }
+
+            .mode-selector-wrap { margin-bottom: 4px !important; }
+            #mode-card-classic { padding: 6px 8px !important; }
+
+            #play-btn {
+                height: 54px !important;
+                min-height: 54px !important;
+            }
+
+            #action-buttons-grid {
+                margin-top: 4px !important;
+                margin-bottom: 4px !important;
+            }
+
+            #action-buttons-grid button {
+                height: 44px !important;
+                min-height: 44px !important;
+                font-size: 12px !important;
+            }
+
+            .mobile-portrait-stream { gap: 6px !important; }
+            .mobile-portrait-stream > div:first-child button { min-height: 44px !important; }
+
+            .mobile-portrait-stream .invite-banner-card,
+            .mobile-portrait-stream .creator-banner-card {
+                min-height: 52px !important;
+                padding: 5px 7px !important;
             }
         }
     </style>
