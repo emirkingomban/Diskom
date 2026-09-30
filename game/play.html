@@ -20965,7 +20965,6 @@ function initMultiplayer() {
   // cleared a potentially stale timer, and the delay was never reset to 2 s on reconnect
   // unless the second handler ran first.
   let _pingTimer = null;
-  let _buildingsSyncTimer = null;
   _socket.on('connect', () => {
     clearTimeout(_connectionFallbackTimer);
     _mySocketId = _socket.id;
@@ -20979,8 +20978,6 @@ function initMultiplayer() {
     if (_fpsEl) { _fpsEl.style.display = ''; _fpsEl.textContent = '⚡ 60 FPS'; }
     if (_pingTimer) clearInterval(_pingTimer);
     _pingTimer = setInterval(() => { if (_connected && _socket) _socket.emit('ping_req', { t: performance.now() }); }, 1000);
-    if (_buildingsSyncTimer) clearInterval(_buildingsSyncTimer);
-    _buildingsSyncTimer = setInterval(() => { if (_connected && _socket) _socket.emit('buildings_sync'); }, 12000);
     _socket.emit('ping_req', { t: performance.now() });
     const _initAxeTier = (playerAcc && playerAcc.baltalar && playerAcc.baltalar.startsWith('ba_tier_')) ? Math.max(_wepTier(_axeXP), parseInt(playerAcc.baltalar.replace('ba_tier_', '')) || 0) : _wepTier(_axeXP);
     const _initSwordTier = (playerAcc && playerAcc.kiliclar && playerAcc.kiliclar.startsWith('ki_tier_')) ? Math.max(_wepTier(_swordXP), parseInt(playerAcc.kiliclar.replace('ki_tier_', '')) || 0) : _wepTier(_swordXP);
@@ -21015,7 +21012,6 @@ function initMultiplayer() {
     _serverMobAuthority = false;
     _otherPlayers.clear();
     if (_pingTimer) { clearInterval(_pingTimer); _pingTimer = null; }
-    if (_buildingsSyncTimer) { clearInterval(_buildingsSyncTimer); _buildingsSyncTimer = null; }
     if (_pingEl) { _pingEl.textContent = '🌐 ⚠️ bağlantı kesildi'; _pingEl.style.color = '#ff8888'; }
     if (reason !== 'io client disconnect') {
       _showRcOverlay();
@@ -21075,23 +21071,7 @@ function initMultiplayer() {
       });
       _applyPendingRemoteSwing(pid);
     });
-    // Merge remote buildings — O(1) Map.get yerine O(N) find kaldırıldı
-    _buildingsMap.clear(); _campfires.length = 0;
-    // Önce kendi binalarımızı map'e al
-    for (let _bi=0;_bi<buildings.length;_bi++) {
-      const _b=buildings[_bi];
-      if (_b._netId) _buildingsMap.set(_b._netId, _b);
-      if (_b.type === 10) _campfires.push(_b);
-    }
-    Object.entries(remoteBuildings).forEach(([bid, b]) => {
-      if (!_buildingsMap.has(bid)) {
-        const _nb = { x: b.x, y: b.y, type: b.type, angle: b.angle, life: 0,
-          hp: b.hp, maxHp: b.maxHp, tier: b.tier || 0, shake: 0, hitTimer: 0, _netId: bid, _ownerId: b.ownerId, ownerClanId: b.ownerClanId || '', _remote: true, _spawnAnim: 0, _hpBarVisibleUntil: 0 };
-        buildings.push(_nb);
-        _buildingsMap.set(bid, _nb);
-        if (_nb.type === 10) _campfires.push(_nb);
-      }
-    });
+    _applyBuildingsSnapshot(remoteBuildings);
     // ── Shared world: rebuild resources from server seed ──────────────────
     if (worldSeed !== undefined) {
       _rebuildResourcesFromSeed(worldSeed, resHp || {});
@@ -21663,9 +21643,8 @@ function initMultiplayer() {
     });
   });
 
-  // Server sends full buildings state after respawn (or on demand)
-  // Merges without duplicating — safe to call at any time
-  _socket.on('buildings_sync', ({ buildings: remoteBuildings }) => {
+  // Reconcile recovery snapshots against the server's authoritative building set.
+  function _applyBuildingsSnapshot(remoteBuildings) {
     if (!remoteBuildings || typeof remoteBuildings !== 'object') return;
 
     const incomingRemote = new Map();
@@ -21731,6 +21710,10 @@ function initMultiplayer() {
     }
     _campfires.length = 0;
     _campfires.push(...nextCampfires);
+  }
+
+  _socket.on('buildings_sync', ({ buildings: remoteBuildings }) => {
+    _applyBuildingsSnapshot(remoteBuildings);
   });
 
   // Ping response
@@ -23486,9 +23469,8 @@ function checkBuildingDamage() {
   // ── HP EMİT — sadece kendi binalarımız için, O(N) ama basit kontrol ──
   for (var _hei = 0; _hei < buildings.length; _hei++) {
     var bh = buildings[_hei];
-    if (bh.hp <= 0 || bh._ownerId !== _mySocketId || !bh._netId) continue;
-    if (!bh._lastEmittedHp) { bh._lastEmittedHp = bh.hp; }
-    else if (bh._lastEmittedHp !== bh.hp) {
+    if (bh._ownerId !== _mySocketId || !bh._netId) continue;
+    if (bh._lastEmittedHp !== bh.hp) {
       bh._lastEmittedHp = bh.hp;
       if (_connected && _socket) _socket.emit('build_hp_update', { id: bh._netId, hp: bh.hp });
     }

@@ -7592,6 +7592,14 @@ io.on('connection', (socket) => {
     if (!isOwner && !isClanOwner) return; // Only owner or clan member can update building HP directly!
     if (hp >= (building.hp ?? building.maxHp ?? 100)) return;
     building.hp = Math.max(0, Math.min(building.hp ?? building.maxHp ?? 100, hp));
+    if (building.hp <= 0) {
+      if (Number(building.type) === 6) releaseTrapVictims(id);
+      buildings.delete(id);
+      rebuildBuildingGrid();
+      io.emit('build_destroy', { id });
+      io.emit('trap_freed', { buildingId: id });
+      return;
+    }
     io.emit('build_hp_update', { id, hp: building.hp });
   });
 
