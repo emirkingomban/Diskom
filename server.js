@@ -429,8 +429,7 @@ const AUTH_LIMITS = {
   register: { max: 5, windowMs: 60 * 60 * 1000 },
   profile_state: { max: 12, windowMs: 60 * 1000 },
   profile_xp: { max: 2, windowMs: 30 * 1000 },
-  shop_buy: { max: 10, windowMs: 60 * 1000 },
-  diamond_buy: { max: 10, windowMs: 60 * 1000 }
+  shop_buy: { max: 10, windowMs: 60 * 1000 }
 };
 const MAX_ACCOUNT_XP = 25_000_000;
 const MAX_ACCOUNT_COINS = 50_000_000;
@@ -3132,10 +3131,6 @@ async function handleApi(request, response, requestPath) {
   if (requestPath === '/api/diamonds/buy' && request.method === 'POST') {
     if (!user) {
       sendJson(response, 401, { error: 'Diamond satın almak için giriş yapmalısın.' });
-      return true;
-    }
-    if (authRateLimited(request, 'diamond_buy')) {
-      sendJson(response, 429, { error: 'Diamond satın alma limiti aşıldı.' });
       return true;
     }
     const amount = Math.floor(Number(body.amount));
